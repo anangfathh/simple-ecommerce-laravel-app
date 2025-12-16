@@ -18,6 +18,7 @@ const filters = ref<ProductFilters>({
   category: undefined,
   min_price: undefined,
   max_price: undefined,
+  sort: 'latest',
   page: 1,
   per_page: 12,
 })
@@ -26,6 +27,15 @@ const showFilters = ref(false)
 const viewMode = ref<'grid' | 'list'>('grid')
 
 const categoryOptions = ref<{ value: string | number; label: string }[]>([])
+
+const sortOptions = [
+  { value: 'latest', label: 'Newest First' },
+  { value: 'oldest', label: 'Oldest First' },
+  { value: 'price_low', label: 'Price: Low to High' },
+  { value: 'price_high', label: 'Price: High to Low' },
+  { value: 'name_asc', label: 'Name: A-Z' },
+  { value: 'name_desc', label: 'Name: Z-A' },
+]
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -57,12 +67,19 @@ const handleCategoryChange = (value: string | number) => {
   loadProducts()
 }
 
+const handleSortChange = (value: string | number) => {
+  filters.value.sort = value as string
+  filters.value.page = 1
+  loadProducts()
+}
+
 const clearFilters = () => {
   filters.value = {
     search: '',
     category: undefined,
     min_price: undefined,
     max_price: undefined,
+    sort: 'latest',
     page: 1,
     per_page: 12,
   }
@@ -91,12 +108,28 @@ onMounted(async () => {
     filters.value.category = Number(route.query.category)
   }
   
+  // Check for sort from URL
+  if (route.query.sort) {
+    filters.value.sort = route.query.sort as string
+  }
+  
   await loadProducts()
 })
 
 watch(() => route.query, (query) => {
+  let shouldReload = false
+  
   if (query.category) {
     filters.value.category = Number(query.category)
+    shouldReload = true
+  }
+  
+  if (query.sort) {
+    filters.value.sort = query.sort as string
+    shouldReload = true
+  }
+  
+  if (shouldReload) {
     loadProducts()
   }
 }, { deep: true })
@@ -107,9 +140,11 @@ watch(() => route.query, (query) => {
     <!-- Page Header -->
     <div class="bg-gradient-to-r from-violet-600/10 via-purple-600/5 to-indigo-600/10 py-12">
       <div class="container max-w-7xl">
-        <h1 class="text-3xl md:text-4xl font-bold">All Products</h1>
+        <h1 class="text-3xl md:text-4xl font-bold">
+          {{ filters.sort === 'latest' ? 'New Arrivals' : 'All Products' }}
+        </h1>
         <p class="text-muted-foreground mt-2">
-          Browse our collection of {{ productStore.pagination.total }} products
+          {{ filters.sort === 'latest' ? 'Check out our newest products' : `Browse our collection of ${productStore.pagination.total} products` }}
         </p>
       </div>
     </div>
@@ -129,12 +164,22 @@ watch(() => route.query, (query) => {
         </div>
         
         <!-- Category Filter -->
-        <div class="w-full md:w-56">
+        <div class="w-full md:w-48">
           <Select
             :model-value="filters.category?.toString() || ''"
             :options="categoryOptions"
             placeholder="All Categories"
             @update:model-value="handleCategoryChange"
+          />
+        </div>
+
+        <!-- Sort Filter -->
+        <div class="w-full md:w-48">
+          <Select
+            :model-value="filters.sort || 'latest'"
+            :options="sortOptions"
+            placeholder="Sort by"
+            @update:model-value="handleSortChange"
           />
         </div>
 

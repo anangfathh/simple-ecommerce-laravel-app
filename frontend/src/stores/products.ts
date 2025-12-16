@@ -29,6 +29,7 @@ export interface ProductFilters {
   min_price?: number
   max_price?: number
   search?: string
+  sort?: string
   per_page?: number
   page?: number
 }
@@ -56,6 +57,7 @@ export const useProductStore = defineStore('products', () => {
       if (filters.min_price) params.append('min_price', filters.min_price.toString())
       if (filters.max_price) params.append('max_price', filters.max_price.toString())
       if (filters.search) params.append('search', filters.search)
+      if (filters.sort) params.append('sort', filters.sort)
       params.append('per_page', (filters.per_page || 12).toString())
       if (filters.page) params.append('page', filters.page.toString())
       
