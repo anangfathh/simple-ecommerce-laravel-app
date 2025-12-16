@@ -59,9 +59,9 @@ const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 
         <!-- Auth & Actions -->
         <div class="flex items-center gap-2">
-          <Button variant="ghost" size="icon" class="hidden sm:flex text-muted-foreground hover:text-primary">
+          <!-- <Button variant="ghost" size="icon" class="hidden sm:flex text-muted-foreground hover:text-primary">
             <Search class="h-5 w-5" />
-          </Button>
+          </Button> -->
 
           <template v-if="authStore.isAuthenticated">
             <RouterLink v-if="authStore.isAdmin" to="/admin">

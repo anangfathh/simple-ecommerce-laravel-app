@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import { useProductStore } from '@/stores/products'
 import Button from '@/components/ui/Button.vue'
 import Badge from '@/components/ui/Badge.vue'
-import { ArrowRight, Sparkles, ShieldCheck, Truck, Trophy } from 'lucide-vue-next'
+import { ArrowRight, Sparkles, ShieldCheck, Truck } from 'lucide-vue-next'
 
 const productStore = useProductStore()
 
@@ -73,36 +73,8 @@ const formatPrice = (price: number) => {
                 alt="Hero Image" 
                 class="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            </div>
-            
-            <!-- Floating Card -->
-            <div class="absolute -bottom-6 -left-6 md:bottom-12 md:-left-12 bg-white dark:bg-zinc-900 p-4 rounded-xl shadow-xl border border-border/50 max-w-[240px] hidden md:block animate-bounce-slow">
-              <div class="flex items-center gap-3 mb-2">
-                <div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Trophy class="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p class="font-bold text-sm">Best Seller</p>
-                  <p class="text-xs text-muted-foreground">This Week</p>
-                </div>
-              </div>
-              <div class="flex -space-x-2 overflow-hidden">
-                <div v-for="i in 3" :key="i" class="inline-block h-8 w-8 rounded-full ring-2 ring-background bg-muted"></div>
-                <div class="inline-block h-8 w-8 rounded-full ring-2 ring-background bg-muted flex items-center justify-center text-xs text-muted-foreground font-medium">+2k</div>
-              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Brands/Trust Section -->
-    <section class="py-10 border-b border-border/40 bg-muted/20">
-      <div class="container max-w-7xl">
-        <p class="text-center text-sm font-medium text-muted-foreground mb-6">TRUSTED BY MODERN COMPANIES WORLDWIDE</p>
-        <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-          <div v-for="i in 5" :key="i" class="h-8 w-24 bg-foreground/20 rounded animate-pulse"></div>
         </div>
       </div>
     </section>
@@ -182,7 +154,7 @@ const formatPrice = (price: number) => {
               
               <!-- Quick Action Overlay -->
               <div class="absolute bottom-4 left-4 right-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
-                <Button class="w-full bg-white/90 text-black hover:bg-white shadow-lg backdrop-blur-sm">
+                <Button class="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
                   Quick View
                 </Button>
               </div>
@@ -213,27 +185,6 @@ const formatPrice = (price: number) => {
             </Button>
           </RouterLink>
         </div>
-      </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="py-24 bg-card border-t border-border/40">
-      <div class="container max-w-4xl text-center space-y-8">
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Join the Inner Circle</h2>
-        <p class="text-muted-foreground max-w-xl mx-auto text-lg">
-          Subscribe to our newsletter to receive exclusive offers, latest news and updates on our new collections.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-          <input 
-            type="email" 
-            placeholder="Enter your email address" 
-            class="flex-1 h-12 px-4 rounded-full border border-input bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-          />
-          <Button size="lg" class="rounded-full px-8">Subscribe</Button>
-        </div>
-        <p class="text-xs text-muted-foreground">
-          By subscribing you agree to our Terms & Conditions and Privacy Policy.
-        </p>
       </div>
     </section>
   </div>
