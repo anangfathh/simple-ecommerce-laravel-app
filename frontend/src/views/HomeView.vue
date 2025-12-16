@@ -120,25 +120,25 @@ const formatPrice = (price: number) => {
           </RouterLink>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           <RouterLink
             v-for="category in productStore.categories"
             :key="category.id"
             :to="`/products?category=${category.id}`"
-            class="group relative overflow-hidden rounded-xl aspect-[4/5] bg-muted"
+            class="group relative overflow-hidden rounded-xl p-6 bg-gradient-to-br from-primary/5 to-primary/10 border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
           >
-            <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
-            <img 
-              :src="`https://source.unsplash.com/random/400x500/?${category.name}`" 
-              class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-              alt="Category"
-            />
-            <div class="absolute bottom-0 left-0 p-4 z-20 text-white w-full">
-              <h3 class="font-bold text-xl">{{ category.name }}</h3>
-              <p class="text-white/80 text-sm mt-1 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                {{ category.products_count || 0 }} Products
-              </p>
+            <div class="flex flex-col items-center text-center space-y-3">
+              <div class="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <span class="text-2xl font-bold text-primary">{{ category.name.charAt(0) }}</span>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">{{ category.name }}</h3>
+                <p class="text-sm text-muted-foreground mt-1">
+                  {{ category.products_count || 0 }} Products
+                </p>
+              </div>
             </div>
+            <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </RouterLink>
         </div>
       </div>

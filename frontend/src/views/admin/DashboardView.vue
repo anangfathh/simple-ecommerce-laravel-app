@@ -91,7 +91,7 @@ onMounted(async () => {
                 <p class="text-sm text-muted-foreground">{{ product.category?.name }}</p>
               </div>
               <div class="text-right">
-                <p class="font-medium text-primary">${{ product.price }}</p>
+                <p class="font-medium text-primary">{{ formatPrice(product.price) }}</p>
               </div>
             </div>
           </div>

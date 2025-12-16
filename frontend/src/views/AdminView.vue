@@ -53,19 +53,36 @@ const isActive = (to: string) => {
     >
       <div class="flex flex-col h-full">
         <!-- Header -->
-        <div class="p-6 border-b border-border flex items-center justify-between">
-          <RouterLink to="/admin" class="flex items-center space-x-2 min-w-0">
-            <LayoutDashboard class="h-6 w-6 text-primary flex-shrink-0" />
-            <span v-if="!sidebarCollapsed" class="font-bold text-lg truncate">Admin Panel</span>
-          </RouterLink>
+        <div class="p-4 border-b border-border">
+          <div class="flex items-center" :class="sidebarCollapsed ? 'justify-center' : 'justify-between'">
+            <RouterLink to="/admin" class="flex items-center gap-2 min-w-0" :class="sidebarCollapsed ? 'justify-center' : ''">
+              <div class="h-9 w-9 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                <LayoutDashboard class="h-5 w-5 text-primary-foreground" />
+              </div>
+              <div v-if="!sidebarCollapsed" class="flex flex-col min-w-0">
+                <span class="font-bold text-sm truncate">Anangfath Store</span>
+                <span class="text-[10px] text-muted-foreground">Admin Panel</span>
+              </div>
+            </RouterLink>
+            <Button 
+              v-if="!sidebarCollapsed"
+              variant="ghost" 
+              size="icon" 
+              class="hidden lg:flex h-8 w-8 flex-shrink-0 hover:bg-muted"
+              @click="sidebarCollapsed = !sidebarCollapsed"
+            >
+              <ChevronsLeft class="h-4 w-4" />
+            </Button>
+          </div>
+          <!-- Expand button when collapsed -->
           <Button 
+            v-if="sidebarCollapsed"
             variant="ghost" 
             size="icon" 
-            class="hidden lg:flex flex-shrink-0"
+            class="hidden lg:flex h-8 w-8 mx-auto mt-2 hover:bg-muted"
             @click="sidebarCollapsed = !sidebarCollapsed"
           >
-            <ChevronsLeft v-if="!sidebarCollapsed" class="h-5 w-5" />
-            <ChevronsRight v-else class="h-5 w-5" />
+            <ChevronsRight class="h-4 w-4" />
           </Button>
         </div>
 

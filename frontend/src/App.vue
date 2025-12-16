@@ -20,12 +20,15 @@ const handleLogout = async () => {
   await authStore.logout()
   mobileMenuOpen.value = false
 }
+
+// Check if current route is admin route
+const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 </script>
 
 <template>
   <div class="min-h-screen bg-background font-sans text-foreground flex flex-col">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80 dark:bg-black/80">
+    <!-- Header (hidden on admin pages) -->
+    <header v-if="!isAdminRoute" class="sticky top-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80 dark:bg-black/80">
       <div class="container flex h-20 max-w-7xl items-center justify-between px-4">
         <!-- Logo -->
         <RouterLink to="/" class="flex items-center gap-2 group">
@@ -33,7 +36,7 @@ const handleLogout = async () => {
             <ShoppingBag class="h-5 w-5" />
           </div>
           <span class="font-heading font-bold text-2xl tracking-tight text-primary">
-            LuxeStore
+            Anangfath Store
           </span>
         </RouterLink>
 
@@ -145,8 +148,8 @@ const handleLogout = async () => {
       <RouterView />
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-primary-foreground border-t border-white/10">
+    <!-- Footer (hidden on admin pages) -->
+    <footer v-if="!isAdminRoute" class="bg-primary text-primary-foreground border-t border-white/10">
       <div class="container max-w-7xl px-4 py-16">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8">
           <div class="col-span-1 md:col-span-2 space-y-6">
@@ -154,7 +157,7 @@ const handleLogout = async () => {
               <div class="bg-white text-primary p-2 rounded-xl">
                 <ShoppingBag class="h-5 w-5" />
               </div>
-              <span class="font-heading font-bold text-2xl tracking-tight">LuxeStore</span>
+              <span class="font-heading font-bold text-2xl tracking-tight">Anangfath Store</span>
             </RouterLink>
             <p class="text-primary-foreground/70 max-w-sm leading-relaxed">
               Experience the future of online shopping. Hand-picked collections, 
@@ -192,7 +195,7 @@ const handleLogout = async () => {
           </div>
         </div>
         <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/50">
-          <p>&copy; {{ new Date().getFullYear() }} LuxeStore Inc. All rights reserved.</p>
+          <p>&copy; {{ new Date().getFullYear() }} Anangfath Store. All rights reserved.</p>
           <div class="flex gap-6">
             <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
